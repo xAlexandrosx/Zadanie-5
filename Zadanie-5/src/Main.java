@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.regex.*;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class Main {
 
@@ -196,10 +198,28 @@ public class Main {
             return sb.toString();
         }
 
-        String toStringSortedByLabel(){             // posortowane po etykiekiecie, malejąco
+        public String toStringSortedByLabel(){             // posortowane po etykiekiecie, malejąco
 
-            String output = "";
-            return output;
+            /*
+            ArrayList<String> labelArr = new ArrayList<String>();
+
+            for (Shape s : elements) {
+                labelArr.add(s.label);
+            }
+
+            String[] elementsSorted = labelArr.toArray(new String[labelArr.size()]);
+            Arrays.sort(elementsSorted, Collections.reverseOrder());
+
+             */
+
+            StringBuilder output = new StringBuilder();
+            output.append("Obraz:\n");
+
+            output.append("Elementy (posortowane odwrotnie od porządku alfabetycznego etykiet):\n");
+            for (String s : elementsSorted) {
+                output.append(s.toString());
+            }
+            return output.toString();
         }
 
         String toStringSortedByClassName(){         // posortowane po nazwie klasy, rosnąco
