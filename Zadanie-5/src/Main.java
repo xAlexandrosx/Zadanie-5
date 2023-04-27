@@ -1,4 +1,3 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.regex.*;
@@ -196,6 +195,24 @@ public class Main {
             }
             return sb.toString();
         }
+
+        String toStringSortedByLabel(){             // posortowane po etykiekiecie, malejąco
+
+            String output = "";
+            return output;
+        }
+
+        String toStringSortedByClassName(){         // posortowane po nazwie klasy, rosnąco
+
+            String output = "";
+            return output;
+        }
+
+        String toStringSortedByDistanceFromOrigin(){            // posortowane wg. odległości punktu centroida obiektu  od początku układu współrzędnych
+
+            String output = "";
+            return output;
+        }
     }
     public static class UniquePicture extends Picture{
 
@@ -215,7 +232,7 @@ public class Main {
     public static class StandarizedPicture extends Picture{
         public boolean addElement(Shape element) {
             String tag = element.getLabel();
-            Pattern labelPattern = Pattern.compile("^[A-Z][A-Z0-9]*$");         //sprawdzić poprawność kompilacji Pattern
+            Pattern labelPattern = Pattern.compile("^[A-Z][A-Z0-9]*$");
             Matcher labelMatch = labelPattern.matcher(tag);
             if (labelMatch.matches()) {
                 elements.add(element);
@@ -392,7 +409,8 @@ public class Main {
 /*
 
 Zmodyfikuj zadanie z poprzednich zajęć:
-1) Do klasy Picture dodaj 3 metody, zwracające tekstową reprezentację Picture z obiektami posortowanymi według ustalonego porządku (wykorzystaj Arrays.sort i interfejs Comparator):
+1) Do klasy Picture dodaj 3 metody, zwracające tekstową reprezentację Picture z obiektami posortowanymi według ustalonego porządku
+    (wykorzystaj Arrays.sort i interfejs Comparator):
   - String toStringSortedByLabel() // posortowane po etykiekiecie, malejąco
   - String toStringSortedByClassName() // posortowane po nazwie klasy, rosnąco
   - String toStringSortedByDistanceFromOrigin() // posortowane wg. odległości punktu centroida obiektu  od początku układu współrzędnych.
