@@ -1,4 +1,3 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.regex.*;
@@ -215,7 +214,7 @@ public class Main {
     public static class StandarizedPicture extends Picture{
         public boolean addElement(Shape element) {
             String tag = element.getLabel();
-            Pattern labelPattern = Pattern.compile("^[A-Z][A-Z0-9]*$");         //sprawdzić poprawność kompilacji Pattern
+            Pattern labelPattern = Pattern.compile("^[A-Z][A-Z0-9]*$");
             Matcher labelMatch = labelPattern.matcher(tag);
             if (labelMatch.matches()) {
                 elements.add(element);
