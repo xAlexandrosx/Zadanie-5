@@ -22,49 +22,8 @@ public class Main {
         void move(double dx, double dy){
         }
     }
-    /*
-    public static class Point extends Shape{
-        private double x;
-        private double y;
 
-        public Point() {
-            this.x = 0.00;
-            this.y = 0.00;
-            this.label = "";
-        }
-
-        public Point(double x, double y) {
-            this.x = x;
-            this.y = y;
-            this.label = "";
-        }
-
-        public Point(double x, double y, String label) {
-            this.x = x;
-            this.y = y;
-            this.label = label;
-        }
-
-        @Override
-        public void move(double dx, double dy) {
-        x += dx;
-        y += dy;
-    }
-
-        @Override
-        public String toString(){
-            if(label==""){
-                return "Punkt> x:"+x+", y:"+y+"\n";
-            }
-            else{
-                return "Punkt> x:"+x+", y:"+y+"\nLabel:"+label+"\n";
-            }
-        }
-    }
-
-     */
-
-    public static abstract class absPoint extends Shape{        //EKSPERYMENTALNY
+    public static abstract class absPoint extends Shape{
 
 
         abstract public void move(double dx, double dy);
@@ -432,27 +391,15 @@ public class Main {
 
 /*
 
-        DONE - Zmodyfikuj zadanie z poprzednich zajęć:
-
-        DONE - korzystając z techniki dziedziczenia dodaj do klas reprezentujących obiekty graficzne (punkty, linie, ....) pole String label, które pozwala na przypisanie etykiety tekstowej (stwórz osobną klasę Figure),
-        DONE - zmodyfikuj klasę Picture, tak aby wszystkie rodzaje obiektów graficznych były przechowywane w jednej tablicy lub liście.
-        zmodyfikuj implementację metod: toString, move, oraz getArea w klasie Picture, tak aby wykorzystywały mechanizm polimorfizmu
-        wśród stworzonych wybierz i zamień wybrana klasę konkretną na klasę abstrakcyjną
-        DONE - korzystając z dziedziczenia stwórz 2 dodatkowe wersje klasy Picture różniące się wymaganiami odnośnie etykiet (label)
-
-        DONE - UniquePicture - pozwala na dodanie obiektów graficznych z unikalnymi etykietami, zwraca true jeśli udało się dodać
-        DONE - StandarizedPicture - pozwala na dodanie obiektów graficznych z etykietami składającymi się wyłączeni z dużych liter i cyfr i rozpoczynających się od litery, użyj java.util.regex.Pattern, zwraca true jeśli udało się dodać;
-
-        DONE - W implementacji UniquePicture i StandarizedPicture wykorzystaj  poniższą metodę add odziedziczoną z klasy bazowej - w klasach potomnych nadpisz jedynie metodę checkLabel
-
-        DONE - public boolean add(Figure fig) {
-        DONE - if (checkLabel(fig)) {
-        DONE - addImpl(fig); // dodaje figurę do list lub tablicy
-        DONE - return true;
-        DONE - }
-        DONE - return false;
-        DONE - }
+Zmodyfikuj zadanie z poprzednich zajęć:
+1) Do klasy Picture dodaj 3 metody, zwracające tekstową reprezentację Picture z obiektami posortowanymi według ustalonego porządku (wykorzystaj Arrays.sort i interfejs Comparator):
+  - String toStringSortedByLabel() // posortowane po etykiekiecie, malejąco
+  - String toStringSortedByClassName() // posortowane po nazwie klasy, rosnąco
+  - String toStringSortedByDistanceFromOrigin() // posortowane wg. odległości punktu centroida obiektu  od początku układu współrzędnych.
+2) Stwórz 2 intefejsy reprezentujace operacje, jakie można wykonać na danym obiekcie graficznym, dodaj ich implementację do wybranych klas:
+  - Filllable z metodą fill(int color), implementowana przez wszystkie figury z polem (z wyjątkiem Point i Section),
+  - Scalable z metodą scalePerimeter(double k), która liniowo skaluje obwód obiektu, zaimplementowana przez wybrane klasy.
+3) Dodaj do klasy Picture metody fillObjects i scaleObjects,  która wykonuje operacje fill/scalePerimiter na obiektach posiadających odpowiedni interfejs (wykorzystaj operator instanceof).
+4) Dodaj możliwość zapisu/odczytu obrazu z pliku za pomocą mechanizmu serializacji.
 
  */
-
-// ***** ***
