@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.regex.*;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class Main {
 
@@ -22,6 +23,9 @@ public class Main {
 
         void move(double dx, double dy){
         }
+
+        public abstract String getName();
+
     }
 
     public static abstract class absPoint extends Shape{
@@ -56,6 +60,9 @@ public class Main {
             this.y = y;
             this.label = label;
         }
+
+        public String getName(){return "Point";}
+
         @Override
         public void move(double dx, double dy) {
             {
@@ -101,6 +108,8 @@ public class Main {
             this.label = label;
         }
 
+        public String getName(){return "Section";}
+
         @Override
         public void move(double dx, double dy){
             pointA.move(dx, dy);
@@ -139,6 +148,8 @@ public class Main {
             this.promien = promien;
             this.label = label;
         }
+
+        public String getName(){return "Circle";}
 
         @Override
         public void move(double dx, double dy) {
@@ -199,7 +210,6 @@ public class Main {
         }
 
         public String toStringSortedByLabel(){             // posortowane po etykiekiecie, malejąco
-
             /*
             ArrayList<String> labelArr = new ArrayList<String>();
 
@@ -210,8 +220,6 @@ public class Main {
             String[] elementsSorted = labelArr.toArray(new String[labelArr.size()]);
             Arrays.sort(elementsSorted, Collections.reverseOrder());
 
-             */
-
             StringBuilder output = new StringBuilder();
             output.append("Obraz:\n");
 
@@ -219,13 +227,56 @@ public class Main {
             for (String s : elementsSorted) {
                 output.append(s.toString());
             }
+
+            return output.toString();
+
+             */
+
+            ArrayList<String> labelArr = new ArrayList<String>();
+
+            for (Shape s : elements) {
+                labelArr.add(s.label);
+            }
+
+            String[] elementsSorted = labelArr.toArray(new String[labelArr.size()]);
+            Arrays.sort(elementsSorted, Collections.reverseOrder());
+
+            StringBuilder output = new StringBuilder();
+            output.append("Obraz:\n");
+
+            output.append("Elementy (posortowane odwrotnie od porządku alfabetycznego etykiet):\n");
+            for (String s : elementsSorted) {
+                output.append(s.toString()+"\n");
+            }
+
             return output.toString();
         }
 
         String toStringSortedByClassName(){         // posortowane po nazwie klasy, rosnąco
 
-            String output = "";
-            return output;
+            StringBuilder output = new StringBuilder();
+            output.append("Obraz:\n");
+
+            output.append("Elementy (posortowane po nazwie klasy, alfabetycznie):\n");
+            for(Shape s : elements){
+                if(s.getName() == "Circle");{
+                    output.append(s.toString() + "\n");
+                }
+            }
+
+            for(Shape s : elements){
+                if(s.getName() == "Point");{
+                    output.append(s.toString() + "\n");
+                }
+            }
+
+            for(Shape s : elements){
+                if(s.getName() == "Section");{
+                    output.append(s.toString() + "\n");
+                }
+            }
+
+            return output.toString();
         }
 
         String toStringSortedByDistanceFromOrigin(){            // posortowane wg. odległości punktu centroida obiektu  od początku układu współrzędnych
@@ -235,6 +286,8 @@ public class Main {
         }
     }
     public static class UniquePicture extends Picture{
+
+        public String getName(){return "UniquePicture";}
 
         @Override
         public boolean addElement(Shape element) {
@@ -250,6 +303,9 @@ public class Main {
 
     }
     public static class StandarizedPicture extends Picture{
+
+        public String getName(){return "StandardizedPicture";}
+
         public boolean addElement(Shape element) {
             String tag = element.getLabel();
             Pattern labelPattern = Pattern.compile("^[A-Z][A-Z0-9]*$");
@@ -371,7 +427,7 @@ public class Main {
                     System.out.println("Który obraz chcesz wyświetlić?\n1 UniquePicture\n2 StandarizedPicture\nWybierz>");
                     wybierzObraz = scanner.nextInt();
                     scanner.nextLine();
-                    if(wybierzObraz == 1 || wybierzObraz ==2){
+                    if(wybierzObraz == 1 || wybierzObraz == 2){
                         if(wybierzObraz==1){
                             System.out.println(picture.toString());
                         }else if(wybierzObraz==2){
@@ -428,16 +484,16 @@ public class Main {
 
 /*
 
-Zmodyfikuj zadanie z poprzednich zajęć:
-1) Do klasy Picture dodaj 3 metody, zwracające tekstową reprezentację Picture z obiektami posortowanymi według ustalonego porządku
-    (wykorzystaj Arrays.sort i interfejs Comparator):
-  - String toStringSortedByLabel() // posortowane po etykiekiecie, malejąco
-  - String toStringSortedByClassName() // posortowane po nazwie klasy, rosnąco
-  - String toStringSortedByDistanceFromOrigin() // posortowane wg. odległości punktu centroida obiektu  od początku układu współrzędnych.
-2) Stwórz 2 intefejsy reprezentujace operacje, jakie można wykonać na danym obiekcie graficznym, dodaj ich implementację do wybranych klas:
-  - Filllable z metodą fill(int color), implementowana przez wszystkie figury z polem (z wyjątkiem Point i Section),
-  - Scalable z metodą scalePerimeter(double k), która liniowo skaluje obwód obiektu, zaimplementowana przez wybrane klasy.
-3) Dodaj do klasy Picture metody fillObjects i scaleObjects,  która wykonuje operacje fill/scalePerimiter na obiektach posiadających odpowiedni interfejs (wykorzystaj operator instanceof).
-4) Dodaj możliwość zapisu/odczytu obrazu z pliku za pomocą mechanizmu serializacji.
+        Zmodyfikuj zadanie z poprzednich zajęć:
+        1) Do klasy Picture dodaj 3 metody, zwracające tekstową reprezentację Picture z obiektami posortowanymi według ustalonego porządku
+            (wykorzystaj Arrays.sort i interfejs Comparator):
+        - String toStringSortedByLabel() // posortowane po etykiekiecie, malejąco
+        - String toStringSortedByClassName() // posortowane po nazwie klasy, rosnąco
+        - String toStringSortedByDistanceFromOrigin() // posortowane wg. odległości punktu centroida obiektu  od początku układu współrzędnych.
+        2) Stwórz 2 intefejsy reprezentujace operacje, jakie można wykonać na danym obiekcie graficznym, dodaj ich implementację do wybranych klas:
+        - Filllable z metodą fill(int color), implementowana przez wszystkie figury z polem (z wyjątkiem Point i Section),
+        - Scalable z metodą scalePerimeter(double k), która liniowo skaluje obwód obiektu, zaimplementowana przez wybrane klasy.
+        3) Dodaj do klasy Picture metody fillObjects i scaleObjects,  która wykonuje operacje fill/scalePerimiter na obiektach posiadających odpowiedni interfejs (wykorzystaj operator instanceof).
+        4) Dodaj możliwość zapisu/odczytu obrazu z pliku za pomocą mechanizmu serializacji.
 
  */
